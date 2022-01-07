@@ -1,0 +1,33 @@
+<head>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type='text/javascript' src = "{{ url_for('static',filename='scripts/script.js') }}"></script>
+    <title>Total Commander</title>
+</head>
+<div class='row'>
+    <div class = 'commands'>
+        <button type='submit' name='create' value = 'Create' onclick='createButton("A")'>Create</button>
+        <button type='submit' name = 'back' value = 'Back' onclick=" back('A') ">Back</button>
+    </div>
+    <div class='column'> <p>Column1</p>
+        <p>{{ pathA }}</p>
+        <ul>
+            {% for item in itemListA %}
+            <li><a href="/browserA{{ urlFilePath }}/{{ item }}">{{ item }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class='column'>
+        <div class = 'commands'>
+            <button type='submit' name='create' value = 'Create' onclick='createButton("B")'>Create</button>
+            <button type='submit' name = 'back' value = 'Back' onclick=" back('B') ">Back</button>
+        </div>
+         <p>Column2</p> 
+         <p>{{ pathB }}</p>
+         <ul>
+            {% for item in itemListB %}
+            <li><a href="/browserB{{ urlFilePath }}/{{ item }}">{{ item }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
