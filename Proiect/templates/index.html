@@ -6,30 +6,33 @@
 </head>
 <div class='row'>
     <div class = 'commands'>
-        <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("A")'>Create File</button>
-            <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("A")'>Create Folder</button>
         <button type='submit' name = 'back' value = 'Back' onclick=" back('A') ">Back</button>
+        <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("A")'>Create File</button>
+        <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("A")'>Create Folder</button>
+        <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('A') ">Delete</button>
     </div>
     <div class='column'> <p>Column1</p>
         <p>{{ pathA }}</p>
-        <ul>
+        <ul id = 'listA'>
             {% for item in itemListA %}
-            <li><a href="/browserA{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
+            <li> <input type="checkbox"> <a href="/browserA{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
             {% endfor %}
         </ul>
     </div>
     <div class='column'>
         <div class = 'commands'>
+            <button type='submit' name = 'back' value = 'Back' onclick=" back('B') ">Back</button>
             <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("B")'>Create File</button>
             <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("B")'>Create Folder</button>
-            <button type='submit' name = 'back' value = 'Back' onclick=" back('B') ">Back</button>
+            <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('B') ">Delete</button>
         </div>
          <p>Column2</p> 
          <p>{{ pathB }}</p>
-         <ul>
+         <ul id = 'listB'>
             {% for item in itemListB %}
-            <li><a href="/browserB{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
+            <li> <input type="checkbox"><a href="/browserB{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
             {% endfor %}
         </ul>
+        <script>setCheckboxId()</script>
     </div>
 </div>

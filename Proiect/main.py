@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from pathlib import Path
 import os
 import time
+import shutil
 
 app = Flask(__name__)
 FILE_SYSTEM_ROOT = "d:\Facultate\Python\Proiect\Browser-Total-Commander\Proiect"
@@ -86,5 +87,22 @@ def goBack():
         elif(side == 'B'):
             pathB = str(Path(pathB).parents[0])
     return redirect("/")
+
+@app.route("/delete", methods = ["GET", "POST"])
+def deleteFiles():
+    listToDelete = request.form.getlist("listToDelete[]")
+    side = request.form['side']
+    listToDelete.pop(0);
+    for element in listToDelete:
+        if(side=='A'):
+            absPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+        elif(side == 'B'):
+            absPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
+        absPath = os.path.join(absPath, element)
+        if(os.path.isfile(absPath)):
+            os.remove(absPath)
+        elif(os.path.isdir(absPath)):
+            shutil.rmtree(absPath, ignore_errors=True)
+    return home()
 if __name__ == "__main__":
     app.run(debug=True)
