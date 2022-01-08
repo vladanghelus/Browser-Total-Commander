@@ -6,27 +6,29 @@
 </head>
 <div class='row'>
     <div class = 'commands'>
-        <button type='submit' name='create' value = 'Create' onclick='createButton("A")'>Create</button>
+        <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("A")'>Create File</button>
+            <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("A")'>Create Folder</button>
         <button type='submit' name = 'back' value = 'Back' onclick=" back('A') ">Back</button>
     </div>
     <div class='column'> <p>Column1</p>
         <p>{{ pathA }}</p>
         <ul>
             {% for item in itemListA %}
-            <li><a href="/browserA{{ urlFilePath }}/{{ item }}">{{ item }}</a></li>
+            <li><a href="/browserA{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
             {% endfor %}
         </ul>
     </div>
     <div class='column'>
         <div class = 'commands'>
-            <button type='submit' name='create' value = 'Create' onclick='createButton("B")'>Create</button>
+            <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("B")'>Create File</button>
+            <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("B")'>Create Folder</button>
             <button type='submit' name = 'back' value = 'Back' onclick=" back('B') ">Back</button>
         </div>
          <p>Column2</p> 
          <p>{{ pathB }}</p>
          <ul>
             {% for item in itemListB %}
-            <li><a href="/browserB{{ urlFilePath }}/{{ item }}">{{ item }}</a></li>
+            <li><a href="/browserB{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
             {% endfor %}
         </ul>
     </div>

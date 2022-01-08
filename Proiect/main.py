@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from pathlib import Path
 import os
+import time
 
 app = Flask(__name__)
 FILE_SYSTEM_ROOT = "d:\Facultate\Python\Proiect\Browser-Total-Commander\Proiect"
@@ -8,9 +9,18 @@ pathA = 'Files'
 pathB = 'Files'
 @app.route("/")
 def home():
-    print("sunt in home " + pathA + ' ' + pathB)
     itemListA = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathA))
+    itemListA = [[x,] for x in itemListA]
     itemListB = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathB))
+    itemListB = [[x,] for x in itemListB]
+    for item in itemListA:
+        item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]) ))
+    for item in itemListA:
+        item.append(time.ctime(os.path.getctime( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]) ))  )
+    for item in itemListB:
+        item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]) ))
+    for item in itemListB:
+        item.append(time.ctime(os.path.getctime( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]) ))  )
     return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA = pathA, pathB = pathB)
 
 @app.route("/create",  methods=["GET", "POST"])
@@ -21,8 +31,11 @@ def create():
             absPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
         elif(side=='B'):
             absPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
-        with open(os.path.join(absPath, request.form['fileName']), 'w') as fp:
-            pass
+        if(request.form['type'] == 'file'):
+            with open(os.path.join(absPath, request.form['fileName']), 'w') as fp:
+                pass
+        elif(request.form['type'] == 'folder'):
+            os.mkdir(os.path.join(absPath, request.form['fileName']))
     return home()
 
 @app.route("/browserA/<path>")
@@ -39,9 +52,10 @@ def browserA(path):
         return "Este un fisier"
 
     # Show directory contents
-    itemListA = os.listdir(abs_path)
-    itemListB = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathB))
-    return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA=pathA, pathB=pathB)
+    #itemListA = os.listdir(abs_path)
+    #itemListB = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathB))
+    #return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA=pathA, pathB=pathB)
+    return home()
 
 @app.route("/browserB/<path>")
 def browserB(path):
@@ -57,9 +71,10 @@ def browserB(path):
         return "Este un fisier"
 
     # Show directory contents
-    itemListB = os.listdir(abs_path)
-    itemListA = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathA))
-    return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA=pathA, pathB=pathB)
+    #itemListB = os.listdir(abs_path)
+    #itemListA = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathA))
+    #return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA=pathA, pathB=pathB)
+    return home()
 
 @app.route("/back", methods=["GET", "POST"])
 def goBack():
