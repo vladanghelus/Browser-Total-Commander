@@ -10,9 +10,11 @@
         <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("A")'>Create File</button>
         <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("A")'>Create Folder</button>
         <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('A') ">Delete</button>
+        <button type='submit' name = 'Copy' value = 'Copy' onclick= "copySelection('A')">Copy</button>
+        <button type='submit' name = 'Move' value = 'Move' onclick= "moveSelection('A')">Move</button>
     </div>
     <div class='column'> <p>Column1</p>
-        <p>{{ pathA }}</p>
+        <p id = 'caleA'>{{ pathA }}</p>
         <ul id = 'listA'>
             {% for item in itemListA %}
             <li> <input type="checkbox"> <a href="/browserA{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>
@@ -25,9 +27,11 @@
             <button type='submit' name='createFile' value = 'CreateFIle' onclick='createFileButton("B")'>Create File</button>
             <button type='submit' name='createFolder' value = 'CreateFolder' onclick='createFolderButton("B")'>Create Folder</button>
             <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('B') ">Delete</button>
+            <button type='submit' name = 'Copy' value = 'Copy' onclick= "copySelection('B')">Copy</button>
+            <button type='submit' name = 'Move' value = 'Move' onclick= "moveSelection('B')">Move</button>
         </div>
          <p>Column2</p> 
-         <p>{{ pathB }}</p>
+         <p id='caleB'>{{ pathB }}</p>
          <ul id = 'listB'>
             {% for item in itemListB %}
             <li> <input type="checkbox"><a href="/browserB{{ urlFilePath }}/{{ item[0] }}">{{ item[0] }}</a>   {{ item[1] }}   {{ item[2] }}</li>

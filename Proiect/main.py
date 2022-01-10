@@ -104,5 +104,50 @@ def deleteFiles():
         elif(os.path.isdir(absPath)):
             shutil.rmtree(absPath, ignore_errors=True)
     return home()
+
+@app.route("/copy", methods = ["GET", "POST"])
+def copyFiles():
+    listToCopy = request.form.getlist("listToCopy[]")
+    side = request.form['side']
+    listToCopy.pop(0)
+    for element in listToCopy:
+        if(side == 'A'):
+            srcPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+            destPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
+        elif(side == 'B'):
+            srcPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
+            destPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+        srcPath = os.path.join(srcPath, element)
+        if(os.path.isfile(srcPath)):
+            shutil.copy(srcPath, destPath)
+        elif(os.path.isdir(srcPath)):
+            shutil.copytree(srcPath, os.path.join(destPath, element))
+    return home()
+
+@app.route("/move", methods = ["GET", "POST"])
+def moveFiles():
+    listToCopy = request.form.getlist("listToCopy[]")
+    side = request.form['side']
+    listToCopy.pop(0)
+    for element in listToCopy:
+        if(side == 'A'):
+            srcPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+            destPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
+        elif(side == 'B'):
+            srcPath = os.path.join(FILE_SYSTEM_ROOT, pathB)
+            destPath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+        if(request.form['oldName'] != ''):
+            srcPath = os.path.join(srcPath, request.form['oldName'])
+            destPath = os.path.join(destPath, element)
+        else:
+            srcPath = os.path.join(srcPath, element)
+        if(os.path.isfile(srcPath)):
+            shutil.copy(srcPath, destPath)
+            os.remove(srcPath)
+        elif(os.path.isdir(srcPath)):
+            shutil.copytree(srcPath, os.path.join(destPath, element))
+            shutil.rmtree(srcPath)
+    return home()
+
 if __name__ == "__main__":
     app.run(debug=True)
