@@ -206,3 +206,35 @@ function moveSelection(side){
         });
     }
 }
+
+function edit(side){
+    let checkboxList = document.getElementById('list'+side).getElementsByTagName('input');
+    let ctchecked = 0;
+    let fileName
+    for(i=0; i<checkboxList.length; ++i)
+        if(checkboxList[i].checked == true){
+            ctchecked++;
+            fileName = document.getElementById(checkboxList[i].getAttribute('id') + 'F').innerHTML;
+        }
+    if(ctchecked == 0)
+        alert("Selectati un fisier text!");
+    else if(ctchecked > 1)
+        alert("Nu se poate edita mai mult de un fisier")
+    else{
+        $.ajax({
+            url: '/edit',
+            type: 'POST',
+            data: {
+                side : side,
+                fileName : fileName
+            },
+            success: function(response){
+                document.getElementById("inputEdit").innerHTML = response;
+                document.getElementById("inputEdit").setAttribute('style', 'display:block');
+            },
+            error: function(response){
+                console.log(response)
+            }
+        });
+    }
+}

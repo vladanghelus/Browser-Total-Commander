@@ -12,6 +12,7 @@
         <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('A') ">Delete</button>
         <button type='submit' name = 'Copy' value = 'Copy' onclick= "copySelection('A')">Copy</button>
         <button type='submit' name = 'Move' value = 'Move' onclick= "moveSelection('A')">Move</button>
+        <button type='submit' name = 'Edit' value = 'Edit' onclick= "edit('A')">Edit</button>
     </div>
     <div class='column'> <p>Column1</p>
         <p id = 'caleA'>{{ pathA }}</p>
@@ -29,6 +30,7 @@
             <button type='submit' name = 'Delete' value = 'Delete' onclick=" deleteSelection('B') ">Delete</button>
             <button type='submit' name = 'Copy' value = 'Copy' onclick= "copySelection('B')">Copy</button>
             <button type='submit' name = 'Move' value = 'Move' onclick= "moveSelection('B')">Move</button>
+            <button type='submit' name = 'Edit' value = 'Edit' onclick= "edit('B')">Edit</button>
         </div>
          <p>Column2</p> 
          <p id='caleB'>{{ pathB }}</p>
@@ -39,4 +41,7 @@
         </ul>
         <script>setCheckboxId()</script>
     </div>
+    <form id='fileEdit'>
+        <textarea id = 'inputEdit' style = 'display: none'></textarea>
+    </form>
 </div>

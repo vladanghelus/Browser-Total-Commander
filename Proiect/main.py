@@ -1,3 +1,4 @@
+from posixpath import abspath
 from flask import Flask, render_template, request, redirect
 from pathlib import Path
 import os
@@ -15,11 +16,17 @@ def home():
     itemListB = os.listdir(os.path.join(FILE_SYSTEM_ROOT, pathB))
     itemListB = [[x,] for x in itemListB]
     for item in itemListA:
-        item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]) ))
+        if(os.path.isdir( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]))):
+            item.append("DIR")
+        else:
+            item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]) ))
     for item in itemListA:
         item.append(time.ctime(os.path.getctime( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathA), item[0]) ))  )
     for item in itemListB:
-        item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]) ))
+        if(os.path.isdir(os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]))):
+            item.append("DIR")
+        else:
+            item.append(os.path.getsize( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]) ))
     for item in itemListB:
         item.append(time.ctime(os.path.getctime( os.path.join(os.path.join(FILE_SYSTEM_ROOT, pathB), item[0]) ))  )
     return render_template('index.html', itemListA = itemListA, itemListB = itemListB, pathA = pathA, pathB = pathB)
@@ -149,5 +156,19 @@ def moveFiles():
             shutil.rmtree(srcPath)
     return home()
 
+@app.route("/edit", methods = ["GET", "POST"])
+def editFileContent():
+    side = request.form['side']
+    fileName = request.form['fileName']
+    if(side == 'A'):
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+    elif(side == 'B'):
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+    abspath = os.path.join(abspath, fileName)
+    if(os.path.isfile(abspath)):
+        fd = open(abspath, 'r')
+        response = fd.read()
+        fd.close
+    return response
 if __name__ == "__main__":
     app.run(debug=True)
