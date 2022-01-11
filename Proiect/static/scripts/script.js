@@ -230,11 +230,38 @@ function edit(side){
             },
             success: function(response){
                 document.getElementById("inputEdit").innerHTML = response;
-                document.getElementById("inputEdit").setAttribute('style', 'display:block');
+                document.getElementById("fileEdit").setAttribute('style', 'display:block');
+                document.getElementById("fileName").innerHTML = fileName;  
+                document.getElementById("fileNameSide").innerHTML = side;  
             },
             error: function(response){
                 console.log(response)
             }
         });
     }
+}
+
+function saveChanges(){
+    side = document.getElementById('fileNameSide').innerHTML;
+    fileName = document.getElementById('fileName').innerHTML;
+    text = document.getElementById("inputEdit").value;
+    $.ajax({
+        url: '/save',
+        type: 'POST',
+        data: {
+            side : side,
+            fileName : fileName,
+            text : text
+        },
+        success: function (response) {
+            setTimeout(
+                function() 
+                {
+                    location.replace("/");
+                }, 0001);    
+        },
+        error: function (response) {
+            
+        }
+    });
 }

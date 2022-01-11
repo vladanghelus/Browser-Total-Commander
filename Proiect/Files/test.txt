@@ -1,8 +1,1 @@
-Text pentru a fi testat
-
-
-test newline
-
-
-
-test new newline
+Text pentru a fi testat. Testat a doua oara. Testat a 3a oara

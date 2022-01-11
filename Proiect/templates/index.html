@@ -41,7 +41,10 @@
         </ul>
         <script>setCheckboxId()</script>
     </div>
-    <form id='fileEdit'>
-        <textarea id = 'inputEdit' style = 'display: none'></textarea>
-    </form>
+    <div id='fileEdit' style = 'display: none'>
+        <p id = 'fileName' style = 'display: none'></p>
+        <p id = 'fileNameSide' style = 'display: none'></p>
+        <textarea id = 'inputEdit'></textarea>
+        <button type='submit' name = 'Save' value = 'Save' onclick = 'saveChanges()'> Save </button>
+    </div>
 </div>

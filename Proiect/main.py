@@ -170,5 +170,22 @@ def editFileContent():
         response = fd.read()
         fd.close
     return response
+
+@app.route("/save", methods = ["GET", "POST"])
+def saveChanges():
+    print("Am ajuns in save")
+    side = request.form['side']
+    fileName = request.form['fileName']
+    if(side == 'A'):
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+    elif(side == 'B'):
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+    abspath = os.path.join(abspath, fileName)
+    text = request.form['text']
+    if(os.path.isfile(abspath)):
+        fd = open(abspath, 'w')
+        fd.write(text)
+        fd.close()
+    return home()
 if __name__ == "__main__":
     app.run(debug=True)
