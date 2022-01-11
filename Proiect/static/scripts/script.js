@@ -219,7 +219,7 @@ function edit(side){
     if(ctchecked == 0)
         alert("Selectati un fisier text!");
     else if(ctchecked > 1)
-        alert("Nu se poate edita mai mult de un fisier")
+        alert("Nu se pot edita mai multe fisiere in acelasi timp")
     else{
         $.ajax({
             url: '/edit',
@@ -235,7 +235,7 @@ function edit(side){
                 document.getElementById("fileNameSide").innerHTML = side;  
             },
             error: function(response){
-                console.log(response)
+                alert("Nu puteti edita un folder")
             }
         });
     }

@@ -169,6 +169,8 @@ def editFileContent():
         fd = open(abspath, 'r')
         response = fd.read()
         fd.close
+    else:
+        return "Can't edit a folder", 400
     return response
 
 @app.route("/save", methods = ["GET", "POST"])
