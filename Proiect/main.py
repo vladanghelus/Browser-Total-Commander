@@ -163,7 +163,7 @@ def editFileContent():
     if(side == 'A'):
         abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
     elif(side == 'B'):
-        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathB)
     abspath = os.path.join(abspath, fileName)
     if(os.path.isfile(abspath)):
         fd = open(abspath, 'r')
@@ -181,7 +181,7 @@ def saveChanges():
     if(side == 'A'):
         abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
     elif(side == 'B'):
-        abspath = os.path.join(FILE_SYSTEM_ROOT, pathA)
+        abspath = os.path.join(FILE_SYSTEM_ROOT, pathB)
     abspath = os.path.join(abspath, fileName)
     text = request.form['text']
     if(os.path.isfile(abspath)):
